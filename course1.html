@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course 1 - Video and Quiz</title>
+  <link rel="stylesheet" href="../css/course1-style.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1>Тас дәуірі</h1>
+    </div>
+  </header>
+  <main>
+    <section id="video-section" class="card">
+      <h2>Дәріс Видео</h2>
+      <video controls width="600" style="margin: 0 auto; display: flex;">
+        <source src="course1-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <p>1.1 Тас дәуірінің ерекшеліктері</p>
+    </section>
+
+    <section id="quiz-section" class="card">
+      <h2>Тест сұрақтары</h2>
+      <form id="quiz-form">
+        <div class="question">
+          <p><strong>1. Тас дәуірінің негізгі кезеңдерін атаңыз:</strong></p>
+          <label><input type="radio" name="question1" value="a"> A) Қола дәуірі, Темір дәуірі</label><br>
+          <label><input type="radio" name="question1" value="b"> B) Палеолит, Мезолит, Неолит</label><br>
+          <label><input type="radio" name="question1" value="c"> C) Рим дәуірі, Орта ғасыр</label><br>
+          <label><input type="radio" name="question1" value="d"> D) Энеолит, Индустрия дәуірі</label>
+        </div>
+
+        <div class="question">
+          <p><strong>2. Ең ұзақ кезең болып саналатын тас дәуірі кезеңі:</strong></p>
+          <label><input type="radio" name="question2" value="a"> A) Неолит</label><br>
+          <label><input type="radio" name="question2" value="b"> B) Мезолит</label><br>
+          <label><input type="radio" name="question2" value="c"> C) Палеолит</label><br>
+          <label><input type="radio" name="question2" value="d"> D) Энеолит</label>
+        </div>
+
+        <button type="button" id="submit-quiz">Тесті жіберу</button>
+      </form>
+      <div id="quiz-result" class="result-container"></div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 Course Platform. All rights reserved.</p>
+  </footer>
+  <script>
+    // Функция загрузки сохраненных результатов
+    function loadQuizResults() {
+      const savedResult = localStorage.getItem('course1QuizResult');
+      if (savedResult) {
+        document.getElementById('quiz-result').innerHTML = savedResult;
+      }
+    }
+
+    // Проверка теста
+    document.getElementById('submit-quiz').addEventListener('click', () => {
+      const correctAnswers = {
+        question1: "b",
+        question2: "c"
+      };
+
+      let score = 0;
+      const total = Object.keys(correctAnswers).length;
+      const form = new FormData(document.getElementById('quiz-form'));
+
+      for (const [key, value] of form.entries()) {
+        if (correctAnswers[key] === value) score++;
+      }
+
+      const resultHTML = `
+        <p>Сіздің ұпайыңыз: <strong>${score}</strong> / <strong>${total}</strong></p>
+        <p>${score === total ? "🎉 Жарайсыз! Барлығы дұрыс." : "❌ Қайтадан байқап көріңіз."}</p>
+      `;
+
+      document.getElementById('quiz-result').innerHTML = resultHTML;
+      localStorage.setItem('course1QuizResult', resultHTML);
+    });
+
+    // Загрузка результатов при загрузке страницы
+    window.onload = loadQuizResults;
+  </script>
+</body>
+</html>

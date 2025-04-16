@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course 3 - Video and Quiz</title>
+  <link rel="stylesheet" href="../css/course3-style.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1>Алтын Орда - Мемлекет тарихы</h1>
+    </div>
+  </header>
+  <main>
+    <!-- Видео секция -->
+    <section id="video-section" class="card">
+      <h2>Дәріс Видео</h2>
+      <video controls width="600" style="margin: 0 auto; display: flex;">
+        <source src="course3-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <p>3.1 Алтын Орда тарихы</p>
+    </section>
+
+    <!-- Тест секция -->
+    <section id="quiz-section" class="card">
+      <h2>Тест сұрақтары</h2>
+      <form id="quiz-form">
+        <div class="question">
+          <p><strong>1. Алтын Орданың алғашқы орталығы қай қала болды?</strong></p>
+          <label><input type="radio" name="question1" value="A"> A) Сарай-Берке</label><br>
+          <label><input type="radio" name="question1" value="B"> B) Қарақорым</label><br>
+          <label><input type="radio" name="question1" value="C"> C) Сарай-Бату</label><br>
+          <label><input type="radio" name="question1" value="D"> D) Тараз</label>
+        </div>
+
+        <div class="question">
+          <p><strong>2. Алтын Орда мұсылман мемлекетіне қай ханның тұсында айнала бастады?</strong></p>
+          <label><input type="radio" name="question2" value="A"> A) Батый хан</label><br>
+          <label><input type="radio" name="question2" value="B"> B) Берке хан</label><br>
+          <label><input type="radio" name="question2" value="C"> C) Тохты хан</label><br>
+          <label><input type="radio" name="question2" value="D"> D) Өзбек хан</label>
+        </div>
+
+        <div class="question">
+          <p><strong>3. Өзбек ханның тұсында Алтын Ордада қандай өзгеріс болды?</strong></p>
+          <label><input type="radio" name="question3" value="A"> A) Мұсылман діні мемлекеттік дін болып жарияланды</label><br>
+          <label><input type="radio" name="question3" value="B"> B) Әмір Темірдің шабуылы болды</label><br>
+          <label><input type="radio" name="question3" value="C"> C) Египетпен байланыс үзілді</label><br>
+          <label><input type="radio" name="question3" value="D"> D) Ұйғыр жазуы қолданыстан шықты</label>
+        </div>
+
+        <div class="question">
+          <p><strong>4. Алтын Орда хандарының салық жинаумен айналысқан лауазымды тұлғасы кім?</strong></p>
+          <label><input type="radio" name="question4" value="A"> A) Мәлік</label><br>
+          <label><input type="radio" name="question4" value="B"> B) Басқақ</label><br>
+          <label><input type="radio" name="question4" value="C"> C) Даруғалар</label><br>
+          <label><input type="radio" name="question4" value="D"> D) Уәзірлер</label>
+        </div>
+
+        <div class="question">
+          <p><strong>5. Алтын Орданың гүлденген кезеңі қай хандардың тұсында болды?</strong></p>
+          <label><input type="radio" name="question5" value="A"> A) Батый хан мен Берке хан</label><br>
+          <label><input type="radio" name="question5" value="B"> B) Өзбек хан мен Жәнібек хан</label><br>
+          <label><input type="radio" name="question5" value="C"> C) Меңгу-Темір мен Тохты хан</label><br>
+          <label><input type="radio" name="question5" value="D"> D) Тоқтамыс хан мен Әмір Темір</label>
+        </div>
+
+        <button type="button" id="submit-quiz">Тесті жіберу</button>
+      </form>
+      <div id="quiz-result" class="result-container"></div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 Course Platform. All rights reserved.</p>
+  </footer>
+  <script>
+    // Функция для загрузки результатов из localStorage
+    function loadQuizResults() {
+      const savedResult = localStorage.getItem('quizResult');
+      if (savedResult) {
+        const resultDiv = document.getElementById('quiz-result');
+        resultDiv.innerHTML = savedResult;
+      }
+    }
+
+    // Тест нәтижелерін тексеру
+    document.getElementById('submit-quiz').addEventListener('click', () => {
+      const correctAnswers = {
+        question1: "C",
+        question2: "B",
+        question3: "A",
+        question4: "C",
+        question5: "B"
+      };
+
+      let score = 0;
+      let total = Object.keys(correctAnswers).length;
+
+      const form = document.getElementById('quiz-form');
+      const formData = new FormData(form);
+
+      for (let [key, value] of formData.entries()) {
+        if (correctAnswers[key] === value) {
+          score++;
+        }
+      }
+
+      const resultDiv = document.getElementById('quiz-result');
+      const resultHTML = `
+        <p>Сіздің ұпайыңыз: <strong>${score}</strong> / <strong>${total}</strong></p>
+        <p>${score === total ? "🎉 Жарайсыз! Барлығы дұрыс." : "❌ Қайтадан байқап көріңіз."}</p>
+      `;
+      resultDiv.innerHTML = resultHTML;
+
+      // Сохранение результата в localStorage
+      localStorage.setItem('quizResult', resultHTML);
+
+      resultDiv.classList.add(score === total ? 'pass' : 'fail');
+    });
+
+    // Загрузка сохраненных результатов при загрузке страницы
+    window.onload = loadQuizResults;
+  </script>
+</body>
+</html>

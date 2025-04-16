@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course 4 - Video and Quiz</title>
+  <link rel="stylesheet" href="../css/course4-style.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1>Хақназар хан - Тарихи тұлға</h1>
+    </div>
+  </header>
+  <main>
+    <!-- Видео секция -->
+    <section id="video-section" class="card">
+      <h2>Дәріс Видео</h2>
+      <video controls width="600" style="margin: 0 auto; display: flex;">
+        <source src="course4-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <p>4.1 Хақназар ханның саясаты</p>
+    </section>
+
+    <!-- Тест секция -->
+    <section id="quiz-section" class="card">
+      <h2>Тест сұрақтары</h2>
+      <form id="quiz-form">
+        <div class="question">
+          <p><strong>1. Хақназар хан қай жылдары билік құрды?</strong></p>
+          <label><input type="radio" name="question1" value="A"> A) 1511-1518</label><br>
+          <label><input type="radio" name="question1" value="B"> B) 1523-1538</label><br>
+          <label><input type="radio" name="question1" value="C"> C) 1538-1580</label><br>
+          <label><input type="radio" name="question1" value="D"> D) 1580-1600</label>
+        </div>
+
+        <div class="question">
+          <p><strong>2. Хақназар хан қай мемлекетпен “ант беріскен шарт” жасасты?</strong></p>
+          <label><input type="radio" name="question2" value="A"> A) Орыс мемлекеті</label><br>
+          <label><input type="radio" name="question2" value="B"> B) Бұхар хандығы</label><br>
+          <label><input type="radio" name="question2" value="C"> C) Ноғай Ордасы</label><br>
+          <label><input type="radio" name="question2" value="D"> D) Моғол хандығы</label>
+        </div>
+
+        <div class="question">
+          <p><strong>3. Хақназар ханның сыртқы саясатының басты бағыты қандай болды?</strong></p>
+          <label><input type="radio" name="question3" value="A"> A) Барлық көрші елдермен бейбіт қарым-қатынас орнату</label><br>
+          <label><input type="radio" name="question3" value="B"> B) Жетісу жерін толық қайтару</label><br>
+          <label><input type="radio" name="question3" value="C"> C) Моғолдарды жеңіп, олардың жерлерін басып алу</label><br>
+          <label><input type="radio" name="question3" value="D"> D) Ресеймен әскери одақ құру</label>
+        </div>
+
+        <div class="question">
+          <p><strong>4. 1579 жылы Баба сұлтан мен II Абдаллах арасындағы қақтығыста Хақназар хан қандай ұстанымда болды?</strong></p>
+          <label><input type="radio" name="question4" value="A"> A) Баба сұлтанды ашық қолдады</label><br>
+          <label><input type="radio" name="question4" value="B"> B) II Абдаллахты ашық қолдады</label><br>
+          <label><input type="radio" name="question4" value="C"> C) Екеуін де жасырын қолдады</label><br>
+          <label><input type="radio" name="question4" value="D"> D) Екі жаққа да қарсы тұрды</label>
+        </div>
+
+        <div class="question">
+          <p><strong>5. Хақназар хан қай елдің шапқыншылығы салдарынан Жетісудың бір бөлігінен айырылды?</strong></p>
+          <label><input type="radio" name="question5" value="A"> A) Моғол хандығы</label><br>
+          <label><input type="radio" name="question5" value="B"> B) Ойраттар</label><br>
+          <label><input type="radio" name="question5" value="C"> C) Шайбани әулеті</label><br>
+          <label><input type="radio" name="question5" value="D"> D) Ноғай Ордасы</label>
+        </div>
+
+        <button type="button" id="submit-quiz">Тесті жіберу</button>
+      </form>
+      <div id="quiz-result" class="result-container"></div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 Course Platform. All rights reserved.</p>
+  </footer>
+  <script>
+    // Функция загрузки сохраненных результатов
+    function loadQuizResults() {
+      const savedResult = localStorage.getItem('course4QuizResult');
+      if (savedResult) {
+        document.getElementById('quiz-result').innerHTML = savedResult;
+      }
+    }
+
+    // Проверка теста
+    document.getElementById('submit-quiz').addEventListener('click', () => {
+      const correctAnswers = {
+        question1: "C",
+        question2: "B",
+        question3: "A",
+        question4: "C",
+        question5: "B"
+      };
+
+      let score = 0;
+      const total = Object.keys(correctAnswers).length;
+      const form = new FormData(document.getElementById('quiz-form'));
+
+      for (const [key, value] of form.entries()) {
+        if (correctAnswers[key] === value) score++;
+      }
+
+      const resultHTML = `
+        <p>Сіздің ұпайыңыз: <strong>${score}</strong> / <strong>${total}</strong></p>
+        <p>${score === total ? "🎉 Жарайсыз! Барлығы дұрыс." : "❌ Қайтадан байқап көріңіз."}</p>
+      `;
+
+      document.getElementById('quiz-result').innerHTML = resultHTML;
+      localStorage.setItem('course4QuizResult', resultHTML);
+    });
+
+    // Загрузка результатов при загрузке страницы
+    window.onload = loadQuizResults;
+  </script>
+</body>
+</html>

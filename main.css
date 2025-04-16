@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color:tele;
+    color: #333;
+    text-align: center;
+}
+
+.navbar {
+    background: transparent;
+    padding: 20px;
+    margin-top: 20px;
+    margin: 0 auto;
+}
+.slide-in {
+    opacity: 0;
+    transform: translateY(50px); /* Сдвиг вниз */
+    animation: slideIn 1.5s ease-out forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}   
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+}
+
+.navbar li {
+    display: inline;
+}
+
+.navbar a {
+    text-decoration: none;
+    font-size: 25px;
+    color: #000;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #555;
+}
+
+.logo-section {
+    margin-top: 80px;
+}
+
+.logo {
+    width: 400px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.logo-section h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.logo-section p {
+    font-size: 16px;
+    color: #666;
+}
+.about{
+    margin-top: 50px;
+    justify-content: space-between;
+    display: flex;
+    
+
+}
+.about_text{
+    width: 500px;
+    font-size: 30px;
+    margin: 10px;
+    font-weight: bold;
+    color: #000;
+
+}
+.img{
+
+    transform: rotate(13deg);
+    transform: translateY(-30%);
+    right:-50px;
+
+    position: absolute;
+    width: 550px;
+    border-radius: 50%;
+    rotate: 13px;
+
+
+}
+.info{
+    margin-left: 100px;
+    margin-top: 50px;
+    display: block;
+
+}
+.container{
+    position: relative;
+    margin-top: 30px;
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    vertical-align: middle;
+
+}
+.min_img{
+
+    width: 100px;
+
+}
+.info_text{
+    vertical-align: middle;
+    width: 500px;
+
+    height: fit-content;
+
+    display: flex;
+    
+   
+    font-size: 20px;
+
+    font-weight: bold;
+
+    color: black;
+
+}
